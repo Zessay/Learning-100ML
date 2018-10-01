@@ -23,3 +23,39 @@
 > <font color=red>**Step 6：特征缩放**</font>
 
 &emsp;大部分机器学习算法都会在**两个数据点之间距离计算**中使用==欧几里得距离==，而不同特征在**幅值、单位以及范围**上明显不同就会引发一些问题。在计算距离时，*高幅值的特征所占的权重明显高于低幅值的特征*。解决这个问题的方式就是使用**特征标准化**或者**Z-score归一化**，可以导入<font color=red>**`sklearn.preprocessing`中的`StandardScalar`**</font>来处理。
+
+
+
+---
+
+# <font size=4>Day 2 - Simple Linear Regresssion</font>
+
+## <font size=3 color=blue>**使用单个特征预测结果**</font>
+
+&emsp;这是一种基于 **自变量(X)** 的值来预测 **因变量(Y)** 的方法，这种方法假设两个变量是==线性相关的==。所以，我们尝试找一个*线性函数*尽可能准确地预测**响应值(y)**，来作为特征或者说自变量(x)的函数。
+
+## <font size=3 color=blue>**如何找到最佳拟合线**</font>
+
+&emsp;在这个回归模型中，我们尝试通过找到*最佳拟合线* 来**最小化预测误差**，也就是说回归线所造成的误差是最小值。我们要做的是最小化 **观测值`$Y_i$`** 和 **预测值`$Y_p$`** 之间的长度。
+<br/></br>
+
+> <font color=red>**Step 1：数据预处理**</font>
+
+&emsp;采用和之前一样的进行数据预处理的流程图：
+- 导入库
+- 导入数据集
+- 检查缺失值
+- 划分数据集
+- 使用简单线性回归模型中用到的库进行特征缩放
+
+> <font color=red>**Step 2：使用训练集训练简单线性模型**</font>
+
+&emsp;这里使用来自<font color=red>**`sklearn.linear_model`**</font>库的<font color=red>**`LinearRegression`**</font>来将数据集训练成模型。然后我们**创建一个`LinearRegression`类的<font color=red>`regressor`</font>对象**，最后在使用`LinearRegression`类中的`fit()`方法基于数据集训练这个`regressor`对象。
+
+> <font color=red>**Step 3：预测结果**</font>
+
+&emsp;现在我们可以根据测试集数据来预测观测值，使用 **向量`Y_pred`** 来存储输出。接着再基于在上一步训练的`regressor`对象，**使用`LinearRegression`的<font color=red>`predict`</font>方法**来预测结果。
+
+> <font color=red>**Step 4：可视化**</font>
+
+&emsp;最后一步是可视化结果，这里使用`matplotlib.pyplot`库来创建训练集结果和测试集结果的散点图，观察和我们模型的预测值的距离。
