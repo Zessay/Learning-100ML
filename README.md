@@ -48,7 +48,7 @@
 - 划分数据集
 - 使用简单线性回归模型中用到的库进行特征缩放
 
-> <font color=red>**Step 2：使用训练集训练简单线性模型**</font>
+> <font color=red>**Step 2：使用训练集训练一元线性模型**</font>
 
 &emsp;这里使用来自<font color=red>**`sklearn.linear_model`**</font>库的<font color=red>**`LinearRegression`**</font>来将数据集训练成模型。然后我们**创建一个`LinearRegression`类的<font color=red>`regressor`</font>对象**，最后在使用`LinearRegression`类中的`fit()`方法基于数据集训练这个`regressor`对象。
 
@@ -59,3 +59,51 @@
 > <font color=red>**Step 4：可视化**</font>
 
 &emsp;最后一步是可视化结果，这里使用`matplotlib.pyplot`库来创建训练集结果和测试集结果的散点图，观察和我们模型的预测值的距离。
+
+
+
+---
+
+
+# <font size=4>Day 3 - Multiple Linear Regresssion</font>
+
+> ==多元线性回归==通过找一个可以拟合观测值的线性方程来模拟两个或者多个特征和输出之间的关系。多元线性回归的步骤和一元线性回归很相似，区别主要在于评估方法。我们可以通过它去发现哪个因素对预测输出的影响最大，以及不同变量之间的关系。
+
+## <font color=blue size=3>假设 —— `一个优秀的回归分析，验证这些假设很重要`</font>
+
+- **==线性==**：自变量和因变量之间的关系必须是线性的
+- **==同方差==**：需要保证误差的方差是恒定的
+- **==多元正态==**：多元回归假设残差是正态分布的
+- **==无多元共线性==**：假设数据并不是多元共线的；当特征不是互相独立的时候，会出现多元共线
+
+## <font color=blue size=3>注意</font>
+
+&emsp; *变量过多可能会造成模型精确度降低*，尤其是，如果某些变量对结果没有影响或者对其他变量有比较大的影响时。有很多方法来选择合适的变量，比如
+
+- **前向筛选**
+- **后向消元**
+- **双向比较**
+
+## <font color=blue size=3>哑变量</font>
+
+&emsp;在多元回归模型中使用**分类数据**，对于包含非数字的数据类型转换为回归模型，是一种很有效的方法。分类数据指的是*表征类型的数据值*，这种数据值是一个固定的、无序的类型，比如性别(male/female)。在一个回归模型中，这些值可以用一些==哑变量==来代替，通过像1或0这样的值来表示类别值出现与否。
+
+&emsp;==哑变量陷阱==指的是两个或多个变量高度相关，简单来说就是，一个变量可以由其他变量预测。直观地看，存在重复的类别：比如我们可以丢弃male类别，因为female类别内在已经包含了它（female 的 0 就表示 male，反之亦然）。
+
+&emsp;解决哑变量陷阱的方法是：如果有`m`个种类，那么在模型中使用`m-1`个值就行了，剩下的值就可以被看做参考值。
+
+> <font color=red>**Step 1：数据预处理** </font>
+
+- 导入库函数
+- 导入数据集
+- 补全缺失值
+- 如果有必要创建哑变量，同时避免哑变量陷阱
+- 使用一元线性回归中使用的函数库进行特征缩放
+
+> <font color=red>**Step 2：使用训练数据训练模型** </font>
+
+&emsp;这一步和一元线性回归完全相同，我们需要使用 **`sklearn.linear_model`** 中的 **<font color=red>`LinearRegression`</font>** 类。然后创建一个`LinearRegression`类的对象`regressor`，接下来使用`LinearRegression`类中的`fit()`方法，结合训练集数据训练`regressor`对象。
+
+> <font color=red>**Step 3：预测测试结果** </font>
+
+&emsp;现在我们可以由测试集的数据预测**观测值**，我们将输出保存在一个向量`Y_pred`中。这里我们要在上一步中训练的`regressor`对象上，使用`LinearRegression`类中的`predict()`的方法来预测结果。
